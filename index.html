@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>Pixel Adventure — A Jornada Perdida</title>
+  <link rel="icon" href="assets/images/coin.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Palco 960x540 (escalado via JS para caber em qualquer tela) -->
+  <main id="stage">
+    <canvas id="game" width="960" height="540" aria-label="Área do jogo"></canvas>
+
+    <!-- HUD durante a partida -->
+    <div id="hud" class="hidden">
+      <div class="panel" id="coinBox">
+        <img src="assets/images/coin.svg" alt="">
+        <span>MOEDAS: <b id="coins">00</b></span>
+      </div>
+      <div class="panel" id="timeBox">
+        <img src="assets/images/clock.svg" alt="">
+        <span>TEMPO: <b id="time">60</b></span>
+        <div class="bar"><i id="timeBar"></i></div>
+      </div>
+      <div class="panel" id="scoreBox"><span>PONTOS: <b id="score">0000</b></span></div>
+    </div>
+
+    <!-- Tela inicial -->
+    <section id="startScreen" class="screen">
+      <h1>PIXEL ADVENTURE</h1>
+      <h2>A JORNADA PERDIDA</h2>
+      <div class="row">
+        <div class="heroWrap"><div class="shadow"></div><div class="sprite run"></div></div>
+        <div class="help">
+          <p class="goal">Atravesse o cenário, colete moedas e sobreviva por 60 segundos!</p>
+          <ul>
+            <li><kbd>A</kbd> <kbd>D</kbd> ou <kbd>&larr;</kbd> <kbd>&rarr;</kbd> mover</li>
+            <li><kbd>ESPAÇO</kbd> ou <kbd>&uarr;</kbd> pular</li>
+            <li><kbd>M</kbd> liga/desliga o som</li>
+            <li>Toque: botões na tela</li>
+          </ul>
+          <p class="warn">Cactos, espinhos e buracos encerram a partida!</p>
+        </div>
+      </div>
+      <button id="playBtn" class="btn">JOGAR</button>
+    </section>
+
+    <!-- Tela de Game Over -->
+    <section id="gameOver" class="screen hidden">
+      <h1 class="over">GAME OVER</h1>
+      <p id="reason" class="reason"></p>
+      <div class="row">
+        <div class="heroWrap"><div class="shadow"></div><div class="sprite dead"></div></div>
+        <div class="stats">
+          <div class="stat"><span>PONTUAÇÃO FINAL</span><b id="finalScore">0</b></div>
+          <div class="stat"><img src="assets/images/coin.svg" alt=""><span>MOEDAS COLETADAS</span><b id="finalCoins">0</b></div>
+        </div>
+      </div>
+      <button id="retryBtn" class="btn">JOGAR NOVAMENTE</button>
+    </section>
+
+    <!-- Controles de toque (celulares/tablets) -->
+    <div id="touch" class="hidden">
+      <div class="pad"><button id="btnL" aria-label="Esquerda"><i class="ar l"></i></button><button id="btnR" aria-label="Direita"><i class="ar r"></i></button></div>
+      <button id="btnJ" aria-label="Pular"><i class="ar u"></i></button>
+    </div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+/* PIXEL ADVENTURE — estilos da interface (HUD, telas, botões, controles de toque) */
+:root {
+  --ink: #1f1a2e; --gold: #ffd23f; --orange: #d9822b; --brown: #6b3d12;
+  --panel: rgba(31, 26, 46, .82); --cream: #fff7e0; --red: #e0463c;
+  --font: "Lucida Console", "Courier New", "Liberation Mono", monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: #120d24; touch-action: none; user-select: none; -webkit-user-select: none; }
+body { font-family: var(--font); color: var(--cream); }
+
+/* Palco fixo 960x540; o JS aplica transform: scale() para caber na janela */
+#stage { position: absolute; left: 50%; top: 50%; width: 960px; height: 540px; transform: translate(-50%, -50%);
+  background: #5aa2f0; overflow: hidden; box-shadow: 0 0 0 6px var(--ink), 0 0 60px rgba(0, 0, 0, .6); }
+#game { display: block; width: 960px; height: 540px; image-rendering: pixelated; }
+.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+/* ---------- HUD ---------- */
+#hud { position: absolute; inset: 14px 16px auto 16px; display: flex; justify-content: space-between; align-items: flex-start; transition: opacity .3s; }
+.panel { position: relative; display: flex; align-items: center; gap: 10px; min-width: 210px; padding: 8px 14px; background: var(--panel);
+  border: 4px solid var(--gold); box-shadow: 4px 4px 0 rgba(0, 0, 0, .35); font-weight: bold; font-size: 20px; letter-spacing: 1px; }
+.panel img { width: 30px; height: 30px; image-rendering: pixelated; }
+.panel b { color: var(--gold); font-size: 24px; }
+#timeBox { flex-wrap: wrap; justify-content: center; }
+#timeBox span { flex: 1; }
+#timeBox .bar { flex-basis: 100%; height: 8px; background: #000; border: 2px solid var(--cream); }
+#timeBar { display: block; height: 100%; width: 100%; background: #6fd055; transition: background .3s; }
+#timeBox.danger { border-color: var(--red); animation: pulse .5s steps(2) infinite; }
+#timeBox.danger b { color: var(--red); }
+#timeBox.danger #timeBar { background: var(--red); }
+#scoreBox { justify-content: flex-end; }
+@keyframes pulse { 50% { transform: scale(1.07); } }
+
+/* ---------- Telas (início e game over) ---------- */
+.screen { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  background: radial-gradient(ellipse at center, rgba(20, 14, 50, .35) 0%, rgba(20, 14, 50, .78) 100%); transition: opacity .45s, visibility .45s; }
+h1 { font-size: 66px; line-height: 1; letter-spacing: 4px; color: var(--gold); text-align: center; white-space: nowrap;
+  text-shadow: 0 4px 0 var(--orange), 0 8px 0 #8a3a1a, 0 12px 0 var(--brown), 6px 14px 0 rgba(0, 0, 0, .45); animation: bob 2.4s steps(6) infinite; }
+h1.over { color: #ff6a55; font-size: 82px; text-shadow: 0 4px 0 #b3281f, 0 8px 0 #7a1814, 0 12px 0 #4a0e0c, 6px 14px 0 rgba(0, 0, 0, .5); animation: shake .6s steps(4) infinite; }
+h2 { font-size: 22px; letter-spacing: 10px; color: var(--cream); text-shadow: 3px 3px 0 var(--ink); margin-bottom: 4px; }
+.reason { font-size: 20px; color: var(--cream); text-shadow: 2px 2px 0 var(--ink); margin-bottom: 4px; }
+@keyframes bob { 50% { transform: translateY(-6px); } }
+@keyframes shake { 25% { transform: translate(3px, -2px); } 75% { transform: translate(-3px, 2px); } }
+.row { display: flex; align-items: center; gap: 34px; margin: 6px 0 10px; }
+
+/* Personagem (recortes da folha de sprites player.svg: 5 quadros de 72x104) */
+.heroWrap { position: relative; width: 150px; height: 214px; }
+.heroWrap .shadow { position: absolute; left: 14px; bottom: 0; width: 120px; height: 14px; background: rgba(0, 0, 0, .4); border-radius: 50%; }
+.sprite { position: absolute; left: 2px; top: 2px; width: 72px; height: 104px; transform: scale(2); transform-origin: top left; image-rendering: pixelated; }
+.sprite.run { background: url("assets/images/player.svg") 0 0 / 360px 104px no-repeat; animation: run .6s steps(1) infinite; }
+.sprite.dead { background: url("assets/images/player-defeated.svg") 0 0 / 72px 104px no-repeat; animation: wobble 1.2s steps(2) infinite; }
+@keyframes run { 0% { background-position: -72px 0; } 25% { background-position: 0 0; } 50% { background-position: -144px 0; } 75% { background-position: 0 0; } }
+@keyframes wobble { 50% { transform: scale(2) rotate(-6deg); } }
+
+.help { width: 430px; padding: 14px 18px; background: var(--panel); border: 4px solid var(--gold); box-shadow: 5px 5px 0 rgba(0, 0, 0, .4); font-size: 16px; line-height: 1.5; }
+.help .goal { margin-bottom: 8px; color: var(--cream); }
+.help ul { list-style: none; }
+.help li { margin: 4px 0; }
+.help .warn { margin-top: 8px; color: #ff8a70; font-weight: bold; }
+kbd { display: inline-block; min-width: 26px; padding: 1px 6px; text-align: center; font: bold 14px var(--font); color: var(--ink); background: var(--cream); border: 2px solid var(--ink); box-shadow: 0 3px 0 #8d7f6a; }
+
+.stats { display: flex; flex-direction: column; gap: 12px; }
+.stat { display: flex; align-items: center; gap: 12px; min-width: 400px; padding: 12px 18px; background: var(--panel); border: 4px solid var(--gold); box-shadow: 5px 5px 0 rgba(0, 0, 0, .4); font-weight: bold; font-size: 17px; }
+.stat img { width: 32px; height: 32px; image-rendering: pixelated; }
+.stat span { flex: 1; }
+.stat b { color: var(--gold); font-size: 34px; }
+
+/* Botões */
+.btn { font: bold 28px var(--font); letter-spacing: 3px; color: var(--ink); background: linear-gradient(#ffe46b, #ffb52e); padding: 14px 44px; cursor: pointer;
+  border: 4px solid var(--ink); box-shadow: 0 8px 0 #9a5a12, 0 8px 0 4px var(--ink), 0 14px 18px rgba(0, 0, 0, .4); transition: transform .08s, box-shadow .08s; }
+.btn:hover, .btn:focus-visible { background: linear-gradient(#fff08a, #ffc34a); outline: 4px solid var(--cream); outline-offset: 3px; }
+.btn:active { transform: translateY(6px); box-shadow: 0 2px 0 #9a5a12, 0 2px 0 4px var(--ink); }
+
+/* ---------- Controles de toque ---------- */
+#touch { position: absolute; inset: auto 20px 18px 20px; display: flex; justify-content: space-between; align-items: flex-end; transition: opacity .3s; }
+#touch .pad { display: flex; gap: 16px; }
+#touch button { width: 92px; height: 92px; display: grid; place-items: center; background: rgba(31, 26, 46, .55); border: 4px solid rgba(255, 247, 224, .85); box-shadow: 0 5px 0 rgba(0, 0, 0, .4); }
+#touch button.on { background: rgba(255, 210, 63, .7); transform: translateY(4px); }
+.ar { width: 0; height: 0; border: 18px solid transparent; }
+.ar.l { border-right: 28px solid var(--cream); border-left-width: 0; }
+.ar.r { border-left: 28px solid var(--cream); border-right-width: 0; }
+.ar.u { border-bottom: 28px solid var(--cream); border-top-width: 0; }
+
+@media (prefers-reduced-motion: reduce) { h1, h1.over, .sprite.dead, #timeBox.danger { animation: none; } }
