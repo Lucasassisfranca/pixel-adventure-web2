@@ -3,7 +3,7 @@
 Jogo de plataforma 2D feito para a disciplina **Desenvolvimento Web II — Trabalho G2** (trabalho individual).
 Desenvolvido com HTML5, CSS3 e JavaScript puro (Canvas), sem bibliotecas e sem servidor.
 
-> Aluno(a): _preencher_ · Matrícula: _preencher_ · Professor(a): _preencher_ · Data: _preencher_
+> Aluno(a): Lucas José Assis Franca · Matrícula: 1022691 · Professor(a):Jota Pê · Data: 18/11/2026
 
 ## Objetivo
 Controle um aventureiro, atravesse o cenário, **colete moedas** e **sobreviva por 60 segundos**. A partida termina
@@ -44,23 +44,5 @@ HTML5 Canvas · CSS3 (animações com `steps()`, sprites por `background-positio
 ## Como executar localmente
 Basta dar duplo clique em `index.html` (Chrome, Edge, Firefox ou Safari atuais). Não precisa de servidor.
 Opcional: `python3 -m http.server 8000` e abrir `http://localhost:8000`.
-
-## Como publicar no GitHub Pages
-1. Crie um repositório público no GitHub (ex.: `pixel-adventure`).
-2. Envie **o conteúdo** desta pasta para a raiz do repositório (o `index.html` deve ficar na raiz):
-   ```
-   git init && git add . && git commit -m "Pixel Adventure"
-   git branch -M main
-   git remote add origin https://github.com/SEU-USUARIO/pixel-adventure.git
-   git push -u origin main
-   ```
-3. No repositório: **Settings → Pages → Build and deployment → Source: Deploy from a branch → Branch: `main` / `(root)` → Save**.
-4. Em alguns minutos o jogo estará em `https://SEU-USUARIO.github.io/pixel-adventure/`.
-
-Todos os caminhos são relativos, então funciona igual local e publicado.
-
-## Detalhes técnicos
-- Câmera segue o jogador; cada camada de fundo rola com um fator diferente (0,08 · 0,18 · 0,32 · 0,58 · 1,0).
-- Colisão AABB com resolução por eixo; "coyote time" e buffer de pulo para uma jogabilidade fluida.
 - A fase é gerada aleatoriamente a cada partida a partir de padrões de obstáculos testados (sempre há como passar).
 - `window.PixelAdventure` expõe `step()` e `getState()` apenas para testes automatizados.
